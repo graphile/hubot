@@ -24,6 +24,7 @@ module.exports = (robot) ->
     Object.keys(memories()).filter (key) -> searchRegex.test(key)
 
   robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)(.*)/i, (msg) ->
+  handler = (msg) ->
     words = msg.match[1]
     if match = words.match /([a-z0-9-_:]+?)(\s+is\s+([\s\S]*))$/i
       msg.finish()
@@ -61,6 +62,9 @@ module.exports = (robot) ->
             value = "I don't remember anything matching `#{key}`"
 
       msg.send value
+
+  robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)(.*)/i, handler
+  robot.hear /(?:!)(.*)/i, handler
 
   robot.respond /forget\s+(.*)/i, (msg) ->
     key = msg.match[1].toLowerCase()
