@@ -3,6 +3,7 @@
 #
 # Commands:
 #   hubot what is|remember <key> - Returns a string
+#   hubot !<key> - Shortcut to remember
 #   hubot remember <key> is <value>. - Returns nothing. Remembers the text for next time!
 #   hubot what do you remember - Returns everything hubot remembers.
 #   hubot forget <key> - Removes key from hubots brain.
@@ -22,9 +23,9 @@ module.exports = (robot) ->
     searchRegex = new RegExp(key, 'i')
     Object.keys(memories()).filter (key) -> searchRegex.test(key)
 
-  robot.respond /(?:what is|rem(?:ember)?)\s+(.*)/i, (msg) ->
+  robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)(.*)/i, (msg) ->
     words = msg.match[1]
-    if match = words.match /(.*?)(\s+is\s+([\s\S]*))$/i
+    if match = words.match /([a-z0-9-_:]+?)(\s+is\s+([\s\S]*))$/i
       msg.finish()
       key = match[1].toLowerCase()
       value = match[3]
