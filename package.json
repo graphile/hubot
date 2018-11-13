@@ -24,6 +24,7 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": ". ./.env && bin/hubot -a discord"
+    "start": ". ./.env && bin/hubot -a discord",
+    "shipit": "git push && ssh hubot -- \"cd graphubot && git pull && pm2 restart Graphubot\""
   }
 }
