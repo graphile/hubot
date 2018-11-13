@@ -25,7 +25,7 @@ module.exports = (robot) ->
 
   handler = (msg) ->
     words = msg.match[1]
-    if match = words.match /([a-z0-9-_:]+?)(\s+is\s+([\s\S]*))$/i
+    if match = words.match /([a-z0-9-_:]+)(\s+is\s+([\s\S]*))$/i
       msg.finish()
       key = match[1].toLowerCase()
       value = match[3]
@@ -35,7 +35,7 @@ module.exports = (robot) ->
       else
         memories()[key] = value
         msg.send "OK, I'll remember #{key}."
-    else if match = words.match /([a-z0-9-_:]+?)\??/i
+    else if match = words.match /([a-z0-9-_:]+)\??/i
       msg.finish()
 
       key = match[1].toLowerCase()
@@ -64,7 +64,7 @@ module.exports = (robot) ->
 
   robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)(.*)/i, handler
   robot.hear /(?:^!)([a-z0-9-_:]+)$/i, handler
-  robot.hear /(?:^!)([a-z0-9-_:]+) is (.*)$/i, handler
+  robot.hear /(?:^!)([a-z0-9-_:]+\s+is\s+.*)$/i, handler
 
   robot.respond /forget\s+(.*)/i, (msg) ->
     key = msg.match[1].toLowerCase()
