@@ -21,7 +21,7 @@
     "underscore": "^1.9.1"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "10.x"
   },
   "scripts": {
     "start": ". ./.env && bin/hubot -a discord",
