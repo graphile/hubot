@@ -18,10 +18,11 @@
     "hubot-rules": "^1.0.0",
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
+    "patch-package": "^6.2.1",
     "underscore": "^1.9.1"
   },
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "scripts": {
     "start": ". ./.env && bin/hubot -a discord",
