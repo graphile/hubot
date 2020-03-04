@@ -25,6 +25,7 @@
     "node": "12.x"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "start": ". ./.env && bin/hubot -a discord",
     "shipit": "git push && ssh hubot -- \"cd graphubot && git pull && pm2 restart Graphubot\""
   }
