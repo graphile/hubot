@@ -1,13 +1,17 @@
 diff --git a/node_modules/hubot-discord/src/discord.coffee b/node_modules/hubot-discord/src/discord.coffee
-index adbc45a..016beef 100644
+index adbc45a..794dc87 100644
 --- a/node_modules/hubot-discord/src/discord.coffee
 +++ b/node_modules/hubot-discord/src/discord.coffee
-@@ -66,7 +66,7 @@ class DiscordBot extends Adapter
+@@ -66,7 +66,11 @@ class DiscordBot extends Adapter
  
          @rooms[message.channel.id]?= message.channel
  
 -        text = message.cleanContent
 +        text = message.content ? message.cleanContent
++
++        matches = text.match(new RegExp("^<@!#{@client.user.id}>"))
++        if matches
++          text = "#{@robot.name} #{text.substr(matches[0].length)}"
  
          if (message?.channel instanceof Discord.DMChannel)
            text = "#{@robot.name}: #{text}" if not text.match new RegExp( "^@?#{@robot.name}" )
