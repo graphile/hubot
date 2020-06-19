@@ -62,9 +62,9 @@ module.exports = (robot) ->
 
       msg.send value
 
-  robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)(.*)/i, handler
+  robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)([\s\S]*)/i, handler
   robot.hear /(?:^!)([a-z0-9-_:]+)$/i, handler
-  robot.hear /(?:^!)([a-z0-9-_:]+\s+is\s+.*)$/i, handler
+  robot.hear /(?:^!)([a-z0-9-_:]+\s+is\s+[\s\S]*)$/i, handler
 
   robot.respond /forget\s+(.*)/i, (msg) ->
     key = msg.match[1].toLowerCase()
