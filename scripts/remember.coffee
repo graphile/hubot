@@ -63,15 +63,29 @@ module.exports = (robot) ->
       msg.send value
 
   robot.respond /(?:what is\s+|rem(?:ember)?\s+|!)([\s\S]*)/i, handler
-  robot.hear /(?:^!)([a-z0-9-_:]+)$/i, handler
+  robot.hear /(?:^!)([a-z0-9-_:]+\??)$/i, handler
   robot.hear /(?:^!)([a-z0-9-_:]+\s+is\s+[\s\S]*)$/i, handler
 
   robot.respond /forget\s+(.*)/i, (msg) ->
-    key = msg.match[1].toLowerCase()
-    value = memories()[key]
-    delete memories()[key]
-    delete memoriesByRecollection()[key]
-    msg.send "I've forgotten #{key} is #{value}."
+    user = msg.message.user
+    userId = user.id
+    userName = "#{user.name}##{user.discriminator}"
+    roomId = msg.message.room
+    channel = msg.robot.client.channels.get(roomId)
+    guildMember = channel.guild.members.get(userId)
+    roles = guildMember.roles
+    roleIds = Array.from(roles.keys())
+
+    if roleIds.includes(process.env.ADMIN_ROLE_ID)
+      key = msg.match[1].toLowerCase()
+      value = memories()[key]
+      delete memories()[key]
+      delete memoriesByRecollection()[key]
+      console.log "#{userName} told us to forget #{key} is #{value}."
+      msg.send "I've forgotten #{key} is #{value}."
+    else
+      console.log("#{userName} has roles '#{roleIds.join("', '")}' which doesn't include '#{process.env.ADMIN_ROLE_ID}'")
+      msg.send "Permission denied"
 
   robot.respond /what do you remember/i, (msg) ->
     msg.finish()
