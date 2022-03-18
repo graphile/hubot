@@ -11,7 +11,7 @@ index adbc45a..794dc87 100644
 +
 +        matches = text.match(new RegExp("^<@!#{@client.user.id}>"))
 +        if matches
-+          text = "#{@robot.name} #{text.substr(matches[0].length)}"
++          text = "#{@robot.name} #{text.slice(matches[0].length)}"
  
          if (message?.channel instanceof Discord.DMChannel)
            text = "#{@robot.name}: #{text}" if not text.match new RegExp( "^@?#{@robot.name}" )
